@@ -6,13 +6,13 @@ export default class GifListContainer extends Component {
   constructor() {
     super();
     this.state = {
-      query: "smile",
+      query: "",
       gifs: []
     }
   }
 
-  componentDidMount() {
-    fetch(`https://api.giphy.com/v1/gifs/search?q=${this.state.query}&api_key=dc6zaTOxFJmzC&rating=g`)
+  queryGif = (query) => {
+    fetch(`https://api.giphy.com/v1/gifs/search?q=${query}&api_key=dc6zaTOxFJmzC&rating=g`)
       .then((response) => response.json())
       .then((data) => {
         let results = data.data.slice(0, 3);
@@ -27,7 +27,7 @@ export default class GifListContainer extends Component {
     return (
       <div>
         <GifList gifs={this.state.gifs} />
-        <GifSearch />
+        <GifSearch queryGif={this.queryGif} />
       </div>
     )
   }
